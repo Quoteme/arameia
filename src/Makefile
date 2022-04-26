@@ -1,0 +1,24 @@
+CC=gcc
+CFLAGS=-I.
+LDIR =./lib
+DESTDIR=/usr/local
+PREFIX=/bin
+
+arameia: arameia.c
+	$(CC) -o $@ arameia.c -lSDL2
+
+.PHONY: clean install
+
+clean: rm -f $(DESTDIR)/
+
+install:
+	mkdir -p $(DESTDIR)$(PREFIX)
+	install -m 755 arameia $(DESTDIR)$(PREFIX)
+
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/arameia
+
+clean:
+	rm arameia
+
+.PHONY: clean install uninstall
