@@ -5,7 +5,7 @@ DESTDIR=/usr/local
 PREFIX=/bin
 
 arameia: arameia.c entity.c
-	$(CC) -o $@ arameia.c entity.c -lSDL2 -g
+	$(CC) -o $@ arameia.c entity.c -lSDL2
 
 .PHONY: clean install
 
