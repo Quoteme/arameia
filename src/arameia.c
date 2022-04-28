@@ -38,7 +38,7 @@ void GameLoop() {
   };
   SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
   while (game.gamestate == RUNNING) {
-    printf("Running...\n");
+    /* printf("Running...\n"); */
     SDL_RenderFillRect(renderer, &rect);
     SDL_RenderPresent(renderer);
     while (SDL_PollEvent(&event)) {
@@ -68,10 +68,12 @@ int main (int argc, char *argv[]) {
     .size = (Point2D) {.x = 8.0, 8.0},
     .velocity = (Point2D) {.x = 0.0, .y = 0.0},
   };
-  InitSetup();
-  GameLoop();
-  FinishOff();
-  printf("hallo welt");
+  addEntity(&game.entityList, player);
+  addEntity(&game.entityList, player);
+  printf("%i", amountOfEntities(&game.entityList, 0));
+  /* InitSetup(); */
+  /* GameLoop(); */
+  /* FinishOff(); */
   return 0;
 }
 // vim: tabstop=2 shiftwidth=2 expandtab
