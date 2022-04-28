@@ -4,7 +4,7 @@ LDIR =./lib
 DESTDIR=/usr/local
 PREFIX=/bin
 
-arameia: arameia.c
+arameia: arameia.c entity.c
 	$(CC) -o $@ arameia.c -lSDL2
 
 .PHONY: clean install
@@ -22,3 +22,4 @@ clean:
 	rm arameia
 
 .PHONY: clean install uninstall
+# vim: tabstop=2 shiftwidth=2 noexpandtab

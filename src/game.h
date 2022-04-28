@@ -1,6 +1,8 @@
 #ifndef GAME
 #define GAME
 
+#include "entity.h"
+
 typedef enum {
   RUNNING,
   PAUSED,
@@ -9,6 +11,7 @@ typedef enum {
 
 typedef struct {
   GameState gamestate;
+  EntityList entityList;
 } Game;
 
 #endif // !GAME

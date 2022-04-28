@@ -15,7 +15,7 @@
         pkgs = import nixpkgs { inherit system; };
       in
         rec {
-          defaultApp = apps.arameia;
+          defaultApp = packages.arameia; # apps.arameia
           defaultPackage = packages.arameia;
 
           apps.arameia = {
