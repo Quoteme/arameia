@@ -58,19 +58,11 @@ void FinishOff() {
 }
 
 int main (int argc, char *argv[]) {
-  Entity player = {
-    .direction = (Direction2D) {RIGHT},
-    .health = (Health) {
-      .full = 1.0,
-      .now = 1.0,
-    },
-    .position = (Point2D) {.x = 0.0, .y = 0.0},
-    .size = (Point2D) {.x = 8.0, 8.0},
-    .velocity = (Point2D) {.x = 0.0, .y = 0.0},
-  };
+  Entity *player = newEntity("player    ", (Point2D) {.x=0.0, .y=0.0});
   addEntity(&game.entityList, player);
   addEntity(&game.entityList, player);
-  printf("%i", amountOfEntities(&game.entityList, 0));
+  forEachEntity(&game.entityList, printEntity);
+  /* printf("%i", amountOfEntities(&game.entityList)); */
   /* InitSetup(); */
   /* GameLoop(); */
   /* FinishOff(); */

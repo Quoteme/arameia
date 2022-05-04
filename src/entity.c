@@ -3,6 +3,24 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_rect.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+Entity *newEntity(char name[10], Point2D position){
+  Entity *e = NULL;
+  e = malloc(sizeof(Entity));
+  strcpy(e->name, name);
+  e->position = position;
+  return e;
+}
+
+void printEntity(const Entity *entity){
+  if (entity == NULL) {
+    printf("NULL entity\n");
+  } else {
+    printf("Entity at %lf %lf\n", entity->position.x, entity->position.y);
+  }
+}
 
 void drawEntity(SDL_Renderer * renderer, Entity * entity) {
   SDL_Rect rect = {
@@ -11,16 +29,18 @@ void drawEntity(SDL_Renderer * renderer, Entity * entity) {
     .w = entity->size.x,
     .h = entity->size.y,
   };
-  printf("lall");
+  SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
+  SDL_RenderFillRect(renderer, &rect);
 }
 
-void addEntity(EntityList * entityList, Entity e) {
-  if (&(entityList->entity)==NULL) {
+void addEntity(EntityList * entityList, Entity * e) {
+  if (entityList->entity==NULL) {
     printf("Es existiert bisher noch kein Element in dieser Liste\n");
     entityList->entity = e;
   } else {
     printf("! Es existiert bereits ein Element in dieser Liste\n");
-    /* entityList->next = &(EntityList) {.entity = e}; */
+    entityList->next = malloc(sizeof(EntityList));
+    entityList->next->entity = e;
   }
 }
 
@@ -31,10 +51,32 @@ void forEachEntity(EntityList * entityList, void (*f)()){
   }
 }
 
-int amountOfEntities(EntityList * entityList, int accumulator){
-  if (entityList->next!=NULL) {
-    return amountOfEntities(entityList, accumulator+1);
-  } else {
-    return accumulator;
+int amountOfEntities(EntityList * entityList){
+  printf("test\n");
+  int i=0;
+  if (&(entityList->next)!=NULL) {
+    entityList = entityList->next;
+    i++;
   }
+  if (&(entityList->next)!=NULL) {
+    entityList = entityList->next;
+    i++;
+  }
+  if (&(entityList->next)!=NULL) {
+    entityList = entityList->next;
+    i++;
+  }
+  if (&(entityList->next)!=NULL) {
+    entityList = entityList->next;
+    i++;
+  }
+  if (&(entityList->next)!=NULL) {
+    entityList = entityList->next;
+    i++;
+  }
+  /* while (&(entityList->next)!=NULL) { */
+  /*   entityList = entityList->next; */
+  /*   i++; */
+  /* } */
+  return i;
 };
