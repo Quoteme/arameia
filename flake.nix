@@ -17,6 +17,12 @@
         rec {
           defaultApp = packages.arameia; # apps.arameia
           defaultPackage = packages.arameia;
+          devShell = packages.arameia.overrideAttrs (prev: {
+            buildInputs = with pkgs; prev.buildInputs ++ [
+              gnumake
+              valgrind
+            ];
+          });
 
           apps.arameia = {
             type = "app";
