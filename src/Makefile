@@ -9,8 +9,6 @@ arameia: arameia.c entity.c
 
 .PHONY: clean install
 
-clean: rm -f $(DESTDIR)/
-
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)
 	install -m 755 arameia $(DESTDIR)$(PREFIX)
