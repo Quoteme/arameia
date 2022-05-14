@@ -60,6 +60,13 @@ void addEntity(EntityList * entityList, Entity * e) {
   }
 }
 
+/**
+ * @brief Execute a function f(x) for each entity x in a given entitylist
+ *
+ * @param entityList The entitylist to iterate over
+ * @param f The function which should be executed with an entity as
+ * an argument for each entity
+ */
 void forEachEntity(EntityList * entityList, void (*f)()){
   f(entityList->entity);
   if (entityList->next != NULL) {
