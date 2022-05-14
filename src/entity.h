@@ -1,21 +1,30 @@
+/**
+ * @file
+ * @brief Data structure for an entity in game. This includes the player
+ * enemies and all moveable objects
+ */
+
 #ifndef ENTITY
 #define ENTITY
 
-#include "health.h"
 #include "point.h"
 #include "direction.h"
 #include <SDL2/SDL.h>
 
 typedef struct {
-  Point2D position;
-  Point2D size;
-  Point2D velocity;
+  int full, now;
+} Health;
+
+typedef struct {
+  Point2D_d position;
+  Point2D_d size;
+  Point2D_d velocity;
   Direction2D direction;
   Health health;
   char name[10];
 } Entity;
 
-Entity *newEntity(char[10], Point2D);
+Entity *newEntity(char[10], Point2D_d);
 
 void printEntity(const Entity*);
 

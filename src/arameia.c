@@ -11,9 +11,6 @@
 #include "entity.h"
 #include "point.h"
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer;
-SDL_Event event;
 int width = 640;
 int height = 480;
 Game game = {
@@ -21,51 +18,44 @@ Game game = {
   .entityList = (EntityList) {}
 };
 
-void InitSetup() {
+void InitSetup(Game *game) {
   SDL_Init(SDL_INIT_EVERYTHING);
-  SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_SHOWN, &window, &renderer);
-  if (!window) {
+  SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_SHOWN, &game->window, &game->renderer);
+  if (!game->window) {
     printf("InitSetup failed to create window");
   }
 }
 
-void GameLoop() {
-  SDL_Rect rect = {
-    .x = 0,
-    .y = 0,
-    .w = 100,
-    .h = 100
-  };
-  SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
-  while (game.gamestate == RUNNING) {
+void GameLoop(Game *game) {
+  SDL_SetRenderDrawColor(game->renderer, 100, 100, 100, 100);
+  while (game->gamestate == RUNNING) {
     /* printf("Running...\n"); */
-    SDL_RenderFillRect(renderer, &rect);
-    SDL_RenderPresent(renderer);
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_KEYDOWN) {
-        game.gamestate = CLOSING;
+    SDL_RenderPresent(game->renderer);
+    while (SDL_PollEvent(&game->event)) {
+      if (game->event.type == SDL_KEYDOWN) {
+        game->gamestate = CLOSING;
         break;
       }
     }
   }
 }
 
-void FinishOff() {
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
+void FinishOff(Game *game) {
+  SDL_DestroyRenderer(game->renderer);
+  SDL_DestroyWindow(game->window);
   SDL_Quit();
   exit(0);
 }
 
 int main (int argc, char *argv[]) {
-  Entity *player = newEntity("player    ", (Point2D) {.x=0.0, .y=0.0});
+  Entity *player = newEntity("player    ", (Point2D_d) {.x=0.0, .y=0.0});
+  Entity *enemy = newEntity("enemy     ", (Point2D_d) {.x=2.0, .y=0.0});
   addEntity(&game.entityList, player);
-  addEntity(&game.entityList, player);
+  addEntity(&game.entityList, enemy);
   forEachEntity(&game.entityList, printEntity);
-  /* printf("%i", amountOfEntities(&game.entityList)); */
-  /* InitSetup(); */
-  /* GameLoop(); */
-  /* FinishOff(); */
+  InitSetup(&game);
+  GameLoop(&game);
+  FinishOff(&game);
   return 0;
 }
 // vim: tabstop=2 shiftwidth=2 expandtab

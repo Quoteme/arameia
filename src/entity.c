@@ -6,19 +6,35 @@
 #include <stdlib.h>
 #include <string.h>
 
-Entity *newEntity(char name[10], Point2D position){
+/**
+ * @brief Allocate memory for an entity and return a pointer to it
+ *
+ * @param name name of the entity
+ * @param position position of the entity
+ * @return pointer to the memory which stores the entity
+ */
+Entity *newEntity(char name[10], Point2D_d position){
   Entity *e = NULL;
   e = malloc(sizeof(Entity));
+  if (!e) {
+    fprintf(stderr, "Memory allocation failed");
+    exit(1);
+  };
   strcpy(e->name, name);
   e->position = position;
   return e;
 }
 
+/**
+ * @brief Print information about an entity to stdout
+ *
+ * @param entity Entity to print information about
+ */
 void printEntity(const Entity *entity){
   if (entity == NULL) {
     printf("NULL entity\n");
   } else {
-    printf("Entity at %lf %lf\n", entity->position.x, entity->position.y);
+    printf("Entity \"%s\" at %lf %lf\n", entity->name, entity->position.x, entity->position.y);
   }
 }
 
@@ -51,32 +67,19 @@ void forEachEntity(EntityList * entityList, void (*f)()){
   }
 }
 
+/**
+ * @brief Calculate the number of elements in an entitylist
+ *
+ * @param entityList The entitylist for which the length should be calculated
+ * @return The length of the entitylist
+ */
 int amountOfEntities(EntityList * entityList){
   printf("test\n");
   int i=0;
-  if (&(entityList->next)!=NULL) {
-    entityList = entityList->next;
+  EntityList* el = entityList;
+  while (el) {
     i++;
+    el = el->next;
   }
-  if (&(entityList->next)!=NULL) {
-    entityList = entityList->next;
-    i++;
-  }
-  if (&(entityList->next)!=NULL) {
-    entityList = entityList->next;
-    i++;
-  }
-  if (&(entityList->next)!=NULL) {
-    entityList = entityList->next;
-    i++;
-  }
-  if (&(entityList->next)!=NULL) {
-    entityList = entityList->next;
-    i++;
-  }
-  /* while (&(entityList->next)!=NULL) { */
-  /*   entityList = entityList->next; */
-  /*   i++; */
-  /* } */
   return i;
 };

@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief data structures that for resuming, pausing ans storing
+ * information about the game
+ */
+
 #ifndef GAME
 #define GAME
 
@@ -17,7 +23,7 @@ typedef struct {
   EntityList entityList;
   SDL_Window *window;
   SDL_Renderer *renderer;
-  SDL_Event *event;
+  SDL_Event event;
 
 } Game;
 

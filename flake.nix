@@ -33,7 +33,7 @@
             pname = "arameia";
             version = "1.0";
             src = ./src;
-          
+
             buildInputs = with pkgs; [
               SDL2
             ];

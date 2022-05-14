@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief Simple data structure for all possible directions an entity
+ * may look
+ */
+
 #ifndef DIRECTION
 #define DIRECTION
 
