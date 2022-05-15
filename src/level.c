@@ -23,6 +23,7 @@ void printTileGrid(Tile *tg, int width, int height) {
 }
 
 Level *loadLevel(char *path) {
+  // allocate memory for a level
   printf("Loading level: %s\n", path);
   Level *l = malloc(sizeof(Level));
   if (!l) {
@@ -30,7 +31,7 @@ Level *loadLevel(char *path) {
     exit(1);
   }
 
-  // parse a level file
+  // 🚀 level file parsing 🚀
   FILE *file = fopen(path, "r");
   if (!file){
     fprintf(stderr, "File not found error");
@@ -39,7 +40,7 @@ Level *loadLevel(char *path) {
   // parse line by line
   char *line;
   size_t linelength = 0;
-  // the first line contains the name
+  // the first line contains the ⭐ name ⭐
   if (getline(&line, &linelength, file) != -1){
     printf("level name is: %s\n", line);
     l->name = malloc(linelength * sizeof(char));
@@ -49,6 +50,23 @@ Level *loadLevel(char *path) {
     }
     strncpy(l->name, line, linelength*sizeof(char));
   }
+  // the next lines form a block delimited by `[` and `]` like this:
+  // [
+  // ...
+  // ]
+  // and this block stores all the ⭐ entities ⭐, each in one line.
+  if (getline(&line, &linelength, file) != -1){
+    if (strcmp(line, "[")) {
+      printf("starting parse of stored entities\n");
+    }
+  }
+  // TODO: parse entities stored
+  if (getline(&line, &linelength, file) != -1){
+    if (strcmp(line, "]")) {
+      printf("ending parse of stored entities\n");
+    }
+  }
+
   fclose(file);
 
   return l;

@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
   /* GameLoop(&game); */
   /* FinishOff(&game); */
   /* clearEntityList(&game.entityList); */
-  char *levelName = "lvl/aNewHorizon.csv";
+  char *levelName = "lvl/aNewHorizon.txt";
   game.level = loadLevel(levelName);
   printLevel(game.level);
   return 0;
