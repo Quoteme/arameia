@@ -7,20 +7,17 @@
 #ifndef GAME
 #define GAME
 
+#include "level.h"
 #include "entity.h"
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_render.h>
-#include <SDL2/SDL.h>
 
-typedef enum {
-  RUNNING,
-  PAUSED,
-  CLOSING
-} GameState;
+typedef enum { RUNNING, PAUSED, CLOSING } GameState;
 
 typedef struct {
   GameState gamestate;
-  EntityList entityList;
+  Level *level;
   SDL_Window *window;
   SDL_Renderer *renderer;
   SDL_Event event;

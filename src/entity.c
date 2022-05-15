@@ -13,7 +13,7 @@
  * @param position position of the entity
  * @return pointer to the memory which stores the entity
  */
-Entity *newEntity(char name[10], Point2D_d position){
+Entity *newEntity(char name[10], Point2D_d position, Point2D_d size){
   Entity *e = NULL;
   e = malloc(sizeof(Entity));
   if (!e) {
@@ -22,6 +22,7 @@ Entity *newEntity(char name[10], Point2D_d position){
   };
   strcpy(e->name, name);
   e->position = position;
+  e->size = size;
   return e;
 }
 
@@ -45,10 +46,16 @@ void drawEntity(SDL_Renderer * renderer, Entity * entity) {
     .w = entity->size.x,
     .h = entity->size.y,
   };
-  SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
+  SDL_SetRenderDrawColor(renderer, 255, 100, 100, 100);
   SDL_RenderFillRect(renderer, &rect);
 }
 
+/**
+ * @brief Add an entity to an entitylist
+ *
+ * @param entityList EntityList to which an entity should be appended
+ * @param e Entity to append
+ */
 void addEntity(EntityList * entityList, Entity * e) {
   if (entityList->entity==NULL) {
     printf("Es existiert bisher noch kein Element in dieser Liste\n");
@@ -56,8 +63,21 @@ void addEntity(EntityList * entityList, Entity * e) {
   } else {
     printf("! Es existiert bereits ein Element in dieser Liste\n");
     entityList->next = malloc(sizeof(EntityList));
+    if (!entityList->next) {
+      fprintf(stderr, "Memory allocation failed!");
+      exit(1);
+    }
     entityList->next->entity = e;
   }
+}
+
+/**
+ * @brief Free all the memory allocated for an EntityList-
+ *
+ * @param entityList The EntityList which is supposed to be cleared
+ */
+void clearEntityList(EntityList *entityList){
+  forEachEntity(entityList, free);
 }
 
 /**
@@ -68,9 +88,11 @@ void addEntity(EntityList * entityList, Entity * e) {
  * an argument for each entity
  */
 void forEachEntity(EntityList * entityList, void (*f)()){
-  f(entityList->entity);
-  if (entityList->next != NULL) {
-    forEachEntity(entityList->next, *f);
+  EntityList *el = entityList;
+  f(el->entity);
+  if (el->next) {
+    el = el->next;
+    f(el->entity);
   }
 }
 

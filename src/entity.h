@@ -24,7 +24,8 @@ typedef struct {
   char name[10];
 } Entity;
 
-Entity *newEntity(char[10], Point2D_d);
+Entity *newEntity(char[10], Point2D_d, Point2D_d);
+void removeEntity(Entity*);
 
 void printEntity(const Entity*);
 
@@ -40,6 +41,8 @@ void addEntity(EntityList*, Entity*);
 /* EntityList mapEntity(EntityList* , Entity (*f)); */
 void forEachEntity(EntityList* , void (*f)());
 int amountOfEntities(EntityList*);
+
+void clearEntityList(EntityList *);
 
 #endif // !ENTITY
 // vim: tabstop=2 shiftwidth=2 expandtab ft=c

@@ -1,4 +1,5 @@
 #ifndef LEVEL_H
+#define LEVEL_H
 
 #include "entity.h"
 
@@ -12,17 +13,22 @@ typedef enum {
   STONE_UP_RIGHT
 } Tile;
 
+typedef struct Level Level;
 struct Level {
   char *name;
   EntityList *entities;
-  Tile* tilegrid;
+  Tile *tilegrid;
   int width;
   int height;
 };
 
-Tile* newTileGrid(int, int);
+Level *loadLevel(char *);
 
-void printTileGrid(Tile*, int, int);
+Tile *newTileGrid(int, int);
+
+void printTileGrid(Tile *, int, int);
+
+void printLevel(Level *);
 
 #endif // !LEVEL_H
 // vim: tabstop=2 shiftwidth=2 expandtab
