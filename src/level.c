@@ -15,11 +15,17 @@ Tile *newTileGrid(int width, int height) {
 }
 
 void printTileGrid(Tile *tg, int width, int height) {
-  for (Tile *t = tg; t < tg + width * height; t++) {
-    printf("%d", *t);
-    if ((t - tg) % width == 0)
-      printf("\n");
+  for (int y=0; y<height; y++) {
+    for (int x=0; x<width; x++) {
+      printf("%d", tg[x+width*y]);
+    }
+    printf("\n");
   }
+  /* for (Tile *t = tg; t < tg + width * height; t++) { */
+  /*   printf("%d", *t); */
+  /*   if ((t - tg) % width == 0) */
+  /*     printf("\n"); */
+  /* } */
 }
 
 Level *loadLevel(char *path) {
@@ -66,13 +72,48 @@ Level *loadLevel(char *path) {
       printf("ending parse of stored entities\n");
     }
   }
+  // Get ⭐ height ⭐ of the stored tilegrid
+  fpos_t locationWhereTheTilegridStarts;
+  l->height = 0;
+  fgetpos(file, &locationWhereTheTilegridStarts);
+  while (getline(&line, &linelength, file) != -1) {
+    l->height++;
+  }
+  fsetpos(file, &locationWhereTheTilegridStarts);
+  // Get ⭐ width ⭐ of the stored tilegrid
+  l->width = 0;
+  for (char c = *line; c; c = *line++) {
+    if (c == ',') l->width++;
+  }
+  // parse ⭐ tilegrid ⭐
+  // store each character in an array of length 8 and when a `,` appears
+  // convert this array to an integer, add the value to the tilegrid
+  // and flush the array. Repeat until all values in the file have
+  // been parsed
+  l->tilegrid = newTileGrid(l->width, l->height);
+  int tilegridIndex = 0;
+  int charactersSinceLastComma = 0;
+  char commaDelimitedCharacterSequence[8];
+  while (getline(&line, &linelength, file) != -1) {
+    for (int i=0; i<strlen(line); i++) {
+      if (line[i]!=',') {
+        commaDelimitedCharacterSequence[charactersSinceLastComma] = line[i];
+        charactersSinceLastComma++;
+      } else {
+        l->tilegrid[tilegridIndex] = atoi(commaDelimitedCharacterSequence);
+        tilegridIndex++;
+        charactersSinceLastComma = 0;
+        memset(commaDelimitedCharacterSequence, 0, sizeof(commaDelimitedCharacterSequence));
+      }
+    }
+  }
 
   fclose(file);
-
   return l;
 }
 
 void printLevel(Level *l){
   printf("Level: %s\n", l->name);
+  printf("width: %d, height: %d\n", l->width, l->height);
   printTileGrid(l->tilegrid, l->width, l->height);
 }
