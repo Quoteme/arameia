@@ -1,0 +1,50 @@
+ent/player_luca.png
+# stand_left
+0 0 32 32 100
+~
+# run_left
+0 0 32 32 100
+32 0 32 32 100
+64 0 32 32 100
+~
+# stand_look_up_left
+96 0 32 32 100
+~
+# run_look_up_left
+96 0 32 32 100
+128 0 32 32 100
+160 0 32 32 100
+~
+# jump_look_down_left
+192 0 32 32 100
+~
+# look_back_left
+224 0 32 32 100
+~
+# sleep_left
+256 0 32 32 100
+~
+# stand_right
+0 32 32 32 100
+~
+# run_right
+0 32 32 32 100
+32 32 32 32 100
+64 32 32 32 100
+~
+# stand_look_up_right
+96 32 32 32 100
+~
+# run_look_up_right
+96 32 32 32 100
+128 32 32 32 100
+160 32 32 32 100
+~
+# jump_look_down_right
+192 32 32 32 100
+~
+# look_back_right
+224 32 32 32 100
+~
+# sleep_right
+256 32 32 32 100
