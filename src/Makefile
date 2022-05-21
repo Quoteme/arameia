@@ -4,8 +4,8 @@ LDIR =./lib
 DESTDIR=/usr/local
 PREFIX=/bin
 
-arameia: arameia.c entity.c
-	$(CC) -o $@ arameia.c entity.c level.c -lSDL2
+arameia: arameia.c entity.c level.c animation.c point.c direction.c
+	$(CC) -g -o $@ arameia.c entity.c level.c animation.c point.c direction.c -lSDL2 -lSDL2_image
 
 .PHONY: clean install
 
