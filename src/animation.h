@@ -4,17 +4,30 @@
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_surface.h>
 
-typedef struct {
+typedef struct Frame Frame;
+struct Frame{
   int duration;
   SDL_Rect source;
-} Frame;
+  Frame *next;
+};
 
 typedef struct {
-  Frame *frames;
-  SDL_Surface *spritesheet;
+  Frame *currentFrame;
+  char *name;
 } Animation;
 
-Animation *loadAnimation(char *);
+typedef struct {
+  Animation *animations;
+  SDL_Surface *spritesheet;
+} AnimationSheet;
+
+SDL_Rect loadRect(char *);
+Frame *loadFrame(char *);
+void addFrame(Animation, Frame*);
+Animation loadAnimation(FILE *);
+AnimationSheet *loadAnimationSheet(char *);
+
+int getNumberOfAnimationsInAnimationSheetFile(FILE *);
 
 #endif // !ANIMATION_H
 #define ANIMATION_H
