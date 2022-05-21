@@ -1,5 +1,13 @@
 aNewHorizon
 [
+## Luca
+POS: 10 10
+DIM: 32 32
+VEL: 0 0
+DIR: RIGHT
+HEL: 100 100
+ANI: ent/player_luca.txt
+~
 ]
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
