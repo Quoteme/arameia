@@ -23,6 +23,7 @@ struct Level {
 };
 
 Level *loadLevel(char *);
+void clearLevel(Level*);
 
 Tile *newTileGrid(int, int);
 
