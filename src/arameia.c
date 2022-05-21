@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
+#include "animation.h"
 #include "direction.h"
 #include "entity.h"
 #include "game.h"
@@ -44,7 +45,8 @@ void updateEntity(Entity *entity) { drawEntity(game.renderer, entity); }
 void GameLoop(Game *game) {
   SDL_SetRenderDrawColor(game->renderer, 100, 100, 100, 100);
   while (game->gamestate == RUNNING) {
-    /* forEachEntity(&game->entityList, updateEntity); */
+    // TODO: draw the level as well
+    forEachEntity(game->level->entities, updateEntity);
     SDL_RenderPresent(game->renderer);
     while (SDL_PollEvent(&game->event)) {
       if (game->event.type == SDL_KEYDOWN) {
@@ -63,20 +65,17 @@ void FinishOff(Game *game) {
 }
 
 int main(int argc, char *argv[]) {
-  Entity *player = newEntity("player    ", (Point2D_d){.x = 0.0, .y = 0.0},
-                             (Point2D_d){.x = 16.0, .y = 16.0});
-  Entity *enemy = newEntity("enemy     ", (Point2D_d){.x = 100.0, .y = 100.0},
-                            (Point2D_d){.x = 16.0, .y = 16.0});
+  /* Entity *player = newEntity("player", (Point2D_d){.x = 0.0, .y = 0.0}, */
+  /*                            (Point2D_d){.x = 16.0, .y = 16.0}); */
+  /* Entity *enemy = newEntity("enemy", (Point2D_d){.x = 100.0, .y = 100.0}, */
+  /*                           (Point2D_d){.x = 16.0, .y = 16.0}); */
   /* addEntity(&game.entityList, player); */
   /* addEntity(&game.entityList, enemy); */
   /* forEachEntity(&game.entityList, printEntity); */
-  /* InitSetup(&game); */
-  /* GameLoop(&game); */
-  /* FinishOff(&game); */
-  /* clearEntityList(&game.entityList); */
-  char *levelName = "lvl/aNewHorizon.txt";
-  game.level = loadLevel(levelName);
-  printLevel(game.level);
+  game.level = loadLevel("lvl/aNewHorizon.txt");
+  InitSetup(&game);
+  GameLoop(&game);
+  FinishOff(&game);
   return 0;
 }
 // vim: tabstop=2 shiftwidth=2 expandtab
