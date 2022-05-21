@@ -1,8 +1,8 @@
 #include "animation.h"
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SDL2/SDL_image.h>
 
 #define VALUESPERFRAME 5
 #define MAXDIGITLENGTH 5
@@ -119,6 +119,15 @@ Animation loadAnimation(FILE *file) {
   return a;
 }
 
+/**
+ * @brief Allocate memory and load an animation sheet into
+ * said memory. The animation sheet that is loaded is determined
+ * by the url parameter.
+ *
+ * @param url URL to the animationsheet that will get loaded
+ * @return AnimationSheet corresponding to the file at the
+ * URL parameter
+ */
 AnimationSheet *loadAnimationSheet(char *url) {
   AnimationSheet *as = malloc(sizeof(AnimationSheet));
   if (!as) {
@@ -140,7 +149,7 @@ AnimationSheet *loadAnimationSheet(char *url) {
   // parse image from here
   // TODO: load with SDL_image
   read = getline(&line, &len, file);
-  line[strlen(line)-1] = '\0';
+  line[strlen(line) - 1] = '\0';
   printf("loading spritesheet from: %s\n", line);
   as->spritesheet = IMG_Load(line);
 
@@ -163,6 +172,23 @@ AnimationSheet *loadAnimationSheet(char *url) {
   }
 
   return as;
+}
+
+/**
+ * @brief Given an animationsheet and a name for an animation,
+ * return the animation corresponding to that name from
+ * the animationsheet.
+ *
+ * @param as AnimationSheet to search for animations in
+ * @param n name of the animation that gets searched for
+ * @return Animation or Null-Pointer if animation not found
+ */
+Animation *getAnimation(AnimationSheet *as, char *n) {
+  Animation *a = as->animations;
+  while (strcmp(a->name, n)!=0) {
+    a++;
+  }
+  return a;
 }
 
 // vim: tabstop=2 shiftwidth=2 expandtab ft=c

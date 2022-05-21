@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_image.h>
 
 typedef struct Frame Frame;
 struct Frame{
@@ -26,6 +27,7 @@ Frame *loadFrame(char *);
 void addFrame(Animation, Frame*);
 Animation loadAnimation(FILE *);
 AnimationSheet *loadAnimationSheet(char *);
+Animation *getAnimation(AnimationSheet*, char*);
 
 int getNumberOfAnimationsInAnimationSheetFile(FILE *);
 
