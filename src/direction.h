@@ -7,12 +7,9 @@
 #ifndef DIRECTION
 #define DIRECTION
 
-typedef enum {
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT
-} Direction2D ;
+typedef enum { UP, DOWN, LEFT, RIGHT } Direction2D;
+
+Direction2D parseDirection2D(char *line);
 
 #endif // !DIRECTION
 // vim: tabstop=2 shiftwidth=2 expandtab
