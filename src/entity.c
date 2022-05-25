@@ -147,15 +147,22 @@ void printEntity(const Entity *entity) {
 }
 
 void drawEntity(SDL_Renderer *renderer, Entity *entity) {
-  // TODO: make this draw an image
-  SDL_Rect rect = {
+  SDL_Rect destination = {
       .x = entity->position.x,
       .y = entity->position.y,
       .w = entity->size.x,
       .h = entity->size.y,
   };
-  SDL_SetRenderDrawColor(renderer, 255, 100, 100, 100);
-  SDL_RenderFillRect(renderer, &rect);
+  // TODO: make this draw an image
+  Animation* a = getAnimation(entity->animationSheet, "run_right");
+  // FIX: This results in {x = 640, y = 480, w = 655745792, h = 91118759}. But why?
+  /* SDL_Rect src = a->currentFrame->source; */
+  SDL_Rect src = {0,0,32,32};
+  SDL_RenderCopy(
+    renderer,
+    SDL_CreateTextureFromSurface(renderer,entity->animationSheet->spritesheet),
+    &src,
+    &destination);
 }
 
 /**

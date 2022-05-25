@@ -56,11 +56,12 @@ Frame *loadFrame(char *line) {
       digitInput++;
     }
   }
-  /* f->source = (SDL_Rect){.x = parsedValues[0], */
-  /*                        .y = parsedValues[1], */
-  /*                        .w = parsedValues[2], */
-  /*                        .h = parsedValues[3]}; */
-  /* f->duration = parsedValues[4]; */
+  // FIX: This is why drawEntity does not work so far!
+  f->source = (SDL_Rect){.x = parsedValues[0],
+                         .y = parsedValues[1],
+                         .w = parsedValues[2],
+                         .h = parsedValues[3]};
+  f->duration = parsedValues[4];
   return f;
 }
 
