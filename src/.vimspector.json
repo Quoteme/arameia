@@ -1,0 +1,32 @@
+{
+  "adapters": {
+    "nix-vscode-cpptools": {
+      "extends": "vscode-cpptools",
+      "command": ["nix-alien-ld","${gadgetDir}/vscode-cpptools/debugAdapters/bin/OpenDebugAD7"]
+    }
+  },
+  "configurations": {
+    "Launch": {
+      "adapter": "nix-vscode-cpptools",
+      "filetypes": [ "cpp", "c", "objc", "rust" ], // optional
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/arameia",
+        "args": [],
+        "cwd": "${workspaceRoot}",
+        "environment": [],
+        "externalConsole": true,
+        "MIMode": "gdb"
+      }
+    },
+    "Attach": {
+      "adapter": "vscode-cpptools",
+      "filetypes": [ "cpp", "c", "objc", "rust" ], // optional
+      "configuration": {
+        "request": "attach",
+        "program": "${workspaceRoot}/arameia",
+        "MIMode": "gdb"
+      }
+    }
+  }
+}
